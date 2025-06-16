@@ -12,6 +12,8 @@ import "../styles/styles.css";
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icono.png" />
+    
+    <link rel="stylesheet" href="../styles/styles.css">
   </head>
   <body>
     <ul class="bg-bubbles">
@@ -29,20 +31,6 @@ import "../styles/styles.css";
         </div>
 
         <form>
-
-            <!-- Tipo de Cuenta -->
-          <div class="form-group">
-            <label for="tipoCuenta">Tipo de cuenta</label>
-            <div class="input-icon-wrapper">
-              <!-- <i class="mdi mdi-account-switch field-icon"></i> -->
-              <select id="tipoCuenta" required>
-                <option value="">Selecciona una opción</option>
-                <option value="personal">Cuenta personal</option>
-                <option value="empresa">Cuenta de empresa</option>
-              </select>
-            </div>
-          </div>
-
           <!-- Nombre -->
           <div class="form-group">
             <label for="nombre">Nombre</label>
@@ -61,16 +49,25 @@ import "../styles/styles.css";
             </div>
           </div>
 
-          <!-- Teléfono -->
+          <!-- NIT -->
           <div class="form-group">
-            <label for="telefono">Número de Teléfono</label>
+            <label for="nit">Cédula del registrante</label>
             <div class="input-icon-wrapper">
-              <img src="/phone.png" alt="" class="field-icon" />
-              <input type="tel" id="telefono" placeholder="+57312345678" required />
+              <img src="/name.png" alt="" class="field-icon" />
+              <input type="text" id="nit" placeholder="1234567890" required />
             </div>
           </div>
 
-          <!-- Correo -->
+          <!-- Nombre Empresa -->
+          <div class="form-group">
+            <label for="nombreEmpresa">Nombre de la Empresa</label>
+            <div class="input-icon-wrapper">
+              <img src="/name.png" alt="" class="field-icon" />
+              <input type="text" id="nombreEmpresa" placeholder="Nombre de la empresa" required />
+            </div>
+          </div>
+
+          <!-- Email -->
           <div class="form-group">
             <label for="email">Correo Electrónico</label>
             <div class="input-icon-wrapper">
@@ -79,30 +76,63 @@ import "../styles/styles.css";
             </div>
           </div>
 
-          <!-- Contraseña -->
+          <!-- Número -->
           <div class="form-group">
-            <label for="contrasena">Contraseña</label>
+            <label for="numero">Número de Teléfono</label>
             <div class="input-icon-wrapper">
-              <img src="/cerrar.png" alt="" class="field-icon" />
-              <input type="password" id="contrasena" placeholder="Crea una contraseña segura" required />
+              <img src="/phone.png" alt="" class="field-icon" />
+              <input type="tel" id="numero" placeholder="+57312345678" required />
             </div>
           </div>
 
-          
+          <!-- Cámara de Comercio PDF -->
+          <div class="form-group">
+            <label for="camaraComercio">Cámara de Comercio (PDF)</label>
+            <div class="input-icon-wrapper">
+              <img src="/pdf.png" alt="" class="field-icon" />
+              <input type="file" id="camaraComercio" accept=".pdf" required />
+            </div>
+          </div>
+
+          <!-- RUT PDF -->
+          <div class="form-group">
+            <label for="rut">RUT (PDF)</label>
+            <div class="input-icon-wrapper">
+              <img src="/pdf.png" alt="" class="field-icon" />
+              <input type="file" id="rut" accept=".pdf" required />
+            </div>
+          </div>
+
+          <!-- Cédula Representante Legal PDF -->
+          <div class="form-group">
+            <label for="cedulaRepresentante">Cédula del Representante Legal (PDF)</label>
+            <div class="input-icon-wrapper">
+              <img src="/pdf.png" alt="" class="field-icon" />
+              <input type="file" id="cedulaRepresentante" accept=".pdf" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cedulaRegistrante">Cédula del registrante (PDF)</label>
+            <div class="input-icon-wrapper">
+              <img src="/pdf.png" alt="" class="field-icon" />
+              <input type="file" id="cedulaRegistrante" accept=".pdf" required />
+            </div>
+          </div>
+
           <button type="submit" class="btn">Registrar</button>
         </form>
 
-          <div style="margin-top: 2rem; text-align: center;">
-            <a href="/">
-              <button class="btn">Volver al inicio de sesión</button>
-            </a>
-          </div>
-
+        <div style="margin-top: 2rem; text-align: center;">
+          <a href="/">
+            <button class="btn">Volver al inicio de sesión</button>
+          </a>
+        </div>
 
         <footer>© 2018 – 2025 Incapacidades.co, Hecho con ❤️</footer>
       </div>
     </div>
 
-    <script src="/js/toggle.js" defer></script>
+    <script src="/js/file-upload.js" defer></script>
   </body>
 </html>

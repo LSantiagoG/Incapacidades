@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const verificarForm = document.getElementById("verificar-form");
   const verificarMensaje = document.getElementById("verificar-mensaje");
 
-  // Enviar OTP
   otpForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     mensaje.textContent = "Enviando...";
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Verificar OTP
   verificarForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     verificarMensaje.textContent = "Verificando...";
@@ -50,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       verificarMensaje.style.color = "green";
       verificarMensaje.textContent = "✅ Verificación exitosa.";
 
-      // 🔁 Redirige al dashboard/inicio luego de 1.5 segundos
       setTimeout(() => {
         window.location.href = "/Inicio";
       }, 1500);

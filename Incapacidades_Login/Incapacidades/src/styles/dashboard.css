@@ -652,3 +652,471 @@ body {
         justify-content: space-between;
     }
 }
+
+.filters-section {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+    border: 1px solid #e5e7eb;
+}
+
+.filters-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.filters-row:last-of-type {
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 180px;
+    flex: 1;
+}
+
+.filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 80px;
+    white-space: nowrap;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: white;
+    font-size: 14px;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    min-width: 140px;
+    flex: 1;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-select:hover {
+    border-color: #9ca3af;
+}
+
+.filters-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+}
+
+.apply-filters-btn {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.apply-filters-btn:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
+.apply-filters-btn::before {
+    content: "🔍";
+    font-size: 14px;
+}
+
+.clear-filters-btn {
+    background: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.clear-filters-btn:hover {
+    background: #e2e8f0;
+    color: #475569;
+    transform: translateY(-1px);
+}
+
+.clear-filters-btn::before {
+    content: "🗑️";
+    font-size: 14px;
+}
+
+/* Indicadores de filtros activos */
+.filter-group.active .filter-select {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.filter-group.active .filter-label::after {
+    content: " ✓";
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+/* Separador más sutil */
+.filters-separator {
+    height: 1px;
+    background: #f3f4f6;
+    margin: 12px 0;
+}
+
+/* Dark mode */
+.dark .filters-section {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.dark .filter-label {
+    color: #9ca3af;
+}
+
+.dark .filter-select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+.dark .filter-select:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+.dark .filter-select:hover {
+    border-color: #6b7280;
+}
+
+.dark .filters-actions {
+    border-top-color: #374151;
+}
+
+.dark .apply-filters-btn {
+    background: #2563eb;
+}
+
+.dark .apply-filters-btn:hover {
+    background: #1d4ed8;
+}
+
+.dark .clear-filters-btn {
+    background: #374151;
+    color: #d1d5db;
+    border-color: #4b5563;
+}
+
+.dark .clear-filters-btn:hover {
+    background: #4b5563;
+    color: #f9fafb;
+}
+
+.dark .filter-group.active .filter-select {
+    border-color: #60a5fa;
+    background: #1e3a8a;
+}
+
+.dark .filters-separator {
+    background: #374151;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .filters-row {
+        flex-wrap: wrap;
+    }
+    
+    .filter-group {
+        min-width: 200px;
+        flex: 0 0 calc(50% - 8px);
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-section {
+        padding: 16px;
+    }
+    
+    .filters-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .filter-group {
+        justify-content: space-between;
+        min-width: unset;
+        flex: 1;
+    }
+
+    .filter-label {
+        min-width: 100px;
+        font-size: 11px;
+    }
+
+    .filter-select {
+        min-width: unset;
+        flex: 1;
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .filters-actions {
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 12px;
+    }
+
+    .apply-filters-btn,
+    .clear-filters-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+.filters-section {
+    background: white;
+    padding: 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 24px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Filas de filtros con mejor espaciado */
+.filters-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.filters-row:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Grupos de filtros con mejor distribución */
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 320px;
+    flex: 1;
+    max-width: 400px;
+}
+
+/* Etiquetas de filtros con ancho variable */
+.filter-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 120px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Etiquetas específicas con anchos personalizados */
+.filter-label[data-filter="entidad"] {
+    min-width: 140px;
+}
+
+.filter-label[data-filter="incapacidad"] {
+    min-width: 150px;
+}
+
+.filter-label[data-filter="departamento"] {
+    min-width: 130px;
+}
+
+/* Selectores con mejor proporción */
+.filter-select {
+    padding: 12px 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    font-size: 15px;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    min-width: 220px;
+    min-height: 44px;
+    flex: 1;
+    max-width: 350px;
+    text-align: left;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filter-select:hover {
+    border-color: #9ca3af;
+}
+
+/* Sección de acciones - OCULTA */
+.filters-actions {
+    display: none;
+}
+
+/* Botones eliminados de la vista */
+.apply-filters-btn,
+.clear-filters-btn {
+    display: none;
+}
+
+/* Indicadores de filtros activos */
+.filter-group.active .filter-select {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.filter-group.active .filter-label::after {
+    content: " ✓";
+    color: #3b82f6;
+    font-weight: bold;
+}
+
+/* ----------------------------------------
+   MODO OSCURO
+   ---------------------------------------- */
+.dark .filters-section {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+.dark .filter-label {
+    color: #9ca3af;
+}
+
+.dark .filter-select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+.dark .filter-select:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+.dark .filter-select:hover {
+    border-color: #6b7280;
+}
+
+.dark .filter-group.active .filter-select {
+    border-color: #60a5fa;
+    background: #1e3a8a;
+}
+
+.dark .filter-group.active .filter-label {
+    color: #dbeafe;
+}
+
+/* ----------------------------------------
+   RESPONSIVE DESIGN
+   ---------------------------------------- */
+@media (max-width: 1200px) {
+    .filters-row {
+        gap: 16px;
+        justify-content: center;
+    }
+    
+    .filter-group {
+        min-width: 300px;
+        flex: 0 0 calc(50% - 8px);
+    }
+
+    .filter-label {
+        min-width: 110px;
+    }
+    
+    .filter-label[data-filter="entidad"] {
+        min-width: 130px;
+    }
+
+    .filter-label[data-filter="incapacidad"] {
+        min-width: 140px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-section {
+        padding: 20px 16px;
+    }
+    
+    .filters-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .filter-group {
+        justify-content: space-between;
+        min-width: unset;
+        flex: 1;
+        gap: 12px;
+    }
+
+    .filter-label {
+        min-width: 120px;
+        font-size: 11px;
+    }
+
+    .filter-label[data-filter="entidad"] {
+        min-width: 140px;
+        font-size: 10px;
+    }
+
+    .filter-label[data-filter="incapacidad"] {
+        min-width: 150px;
+        font-size: 10px;
+    }
+
+    .filter-select {
+        min-width: unset;
+        flex: 1;
+        font-size: 14px;
+        padding: 10px 14px;
+        min-height: 40px;
+    }
+}

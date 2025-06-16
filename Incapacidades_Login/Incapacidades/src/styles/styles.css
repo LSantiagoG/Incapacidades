@@ -253,3 +253,28 @@ footer {
   font-size: 0.8rem;
   color: #999;
 }
+
+input[type="file"] {
+  width: 100%;
+  padding: 0.7rem 1rem 0.7rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background: white;
+  cursor: pointer;
+}
+
+input[type="file"]:focus {
+  outline: none;
+  border-color: #42A5F5;
+  box-shadow: 0 0 8px rgba(66, 165, 245, 0.3);
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  display: none;
+}
+
+input[type="file"]::file-selector-button {
+  display: none;
+}

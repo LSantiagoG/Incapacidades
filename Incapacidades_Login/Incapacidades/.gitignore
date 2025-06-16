@@ -1,24 +1,22 @@
-# build output
-dist/
-
-# generated types
-.astro/
-
-# dependencies
+# Node.js y Astro
 node_modules/
+dist/
+.cache/
+.build/
 
-# logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# Lockfiles (si usas pnpm o npm)
+pnpm-lock.yaml
+package-lock.json
 
-# environment variables
+# Archivos de entorno
 .env
-.env.production
+.env.*
 
-# macOS-specific files
+# Archivos del sistema
 .DS_Store
+Thumbs.db
 
-# jetbrains setting folder
+# Archivos del editor
+.vscode/
 .idea/
+*.log

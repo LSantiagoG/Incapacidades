@@ -13,7 +13,6 @@
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Top Navigation -->
         <nav class="top-nav">
             <div class="nav-brand">
                 <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
@@ -31,10 +30,8 @@
             </div>
         </nav>
 
-        <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-nav">
-                <!-- Información de la Empresa -->
                 <div class="nav-section">
                     <div class="nav-section-title">Empresa</div>
                     <a href="#" class="nav-item" onclick="toggleDropdown(this)">
@@ -47,11 +44,9 @@
                     <div class="submenu">
                         <a href="#" class="submenu-item">Datos Generales de Usuario</a>
                         <a href="#" class="submenu-item">Listado de Empresas</a>
-                        <a href="#" class="submenu-item">Estadísticas</a>
                     </div>
                 </div>
 
-                <!-- Gestión Incapacidades -->
                 <div class="nav-section">
                     <div class="nav-section-title">Gestión</div>
                     <a href="#" class="nav-item" onclick="toggleDropdown(this)">
@@ -66,11 +61,9 @@
                         <a href="#" class="submenu-item">Licencia de Maternidad</a>
                         <a href="#" class="submenu-item">Licencia de Paternidad</a>
                         <a href="#" class="submenu-item">Accidente Laboral</a>
-                        <a href="#" class="submenu-item">Accidente de Tránsito</a>
                     </div>
                 </div>
 
-                <!-- Generación de Reportes -->
                 <div class="nav-section">
                     <div class="nav-section-title">Reportes</div>
                     <a href="#" class="nav-item">
@@ -81,81 +74,128 @@
                     </a>
                 </div>
 
-                <!-- Dashboard -->
                 <div class="nav-section">
                     <div class="nav-section-title">Panel</div>
                     <a href="#" class="nav-item active">
                         <div class="nav-item-content">
                             <span class="icon">📊</span>
-                            <span>Dashboard</span>
+                            <span>Inicio</span>
                         </div>
                     </a>
                 </div>
             </div>
         </nav>
 
-        <!-- Sidebar Overlay para móviles -->
         <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-        <!-- Main Content -->
         <main class="main-content" id="mainContent">
-            <div class="header">
-                <h1>Incapacidades Nómina vs Pagos Recibidos - Año 2025</h1>
-                <p>Análisis detallado de incapacidades y pagos por entidades</p>
-            </div>
-
-            <!-- Filtros -->
+            
             <div class="filters-section">
-                <div class="filter-group">
-                    <label class="filter-label">Año:</label>
-                    <select class="filter-select" id="yearFilter">
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
-                    </select>
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Año</label>
+                        <select class="filter-select" id="yearFilter">
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Mes</label>
+                        <select class="filter-select" id="monthFilter">
+                            <option value="all">Todos los meses</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Entidad Responsable</label>
+                        <select class="filter-select" id="entityFilter">
+                            <option value="all">Todas las entidades</option>
+                            <option value="arl_sura">ARL SURA</option>
+                            <option value="mutual_ser">MUTUAL SER</option>
+                            <option value="cafam_salud">CAFAM SALUD</option>
+                            <option value="assist_salud">ASSIST SALUD</option>
+                            <option value="famisanar">FAMISANAR</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <label class="filter-label">Mes:</label>
-                    <select class="filter-select" id="monthFilter">
-                        <option value="all">Todos los meses</option>
-                        <option value="1">Enero</option>
-                        <option value="2">Febrero</option>
-                        <option value="3">Marzo</option>
-                        <option value="4">Abril</option>
-                        <option value="5">Mayo</option>
-                        <option value="6">Junio</option>
-                        <option value="7">Julio</option>
-                        <option value="8">Agosto</option>
-                        <option value="9">Septiembre</option>
-                        <option value="10">Octubre</option>
-                        <option value="11">Noviembre</option>
-                        <option value="12">Diciembre</option>
-                    </select>
+                
+                <div class="filters-separator"></div>
+                
+                <div class="filters-row">
+                    <div class="filter-group">
+                        <label class="filter-label">Departamento</label>
+                        <select class="filter-select" id="departmentFilter">
+                            <option value="all">Todos los departamentos</option>
+                            <option value="antioquia">Antioquia</option>
+                            <option value="atlantico">Atlántico</option>
+                            <option value="bogota">Bogotá D.C.</option>
+                            <option value="bolivar">Bolívar</option>
+                            <option value="boyaca">Boyacá</option>
+                            <option value="caldas">Caldas</option>
+                            <option value="caqueta">Caquetá</option>
+                            <option value="cauca">Cauca</option>
+                            <option value="cesar">Cesar</option>
+                            <option value="cordoba">Córdoba</option>
+                            <option value="cundinamarca">Cundinamarca</option>
+                            <option value="huila">Huila</option>
+                            <option value="la_guajira">La Guajira</option>
+                            <option value="magdalena">Magdalena</option>
+                            <option value="meta">Meta</option>
+                            <option value="narino">Nariño</option>
+                            <option value="norte_santander">Norte de Santander</option>
+                            <option value="quindio">Quindío</option>
+                            <option value="risaralda">Risaralda</option>
+                            <option value="santander">Santander</option>
+                            <option value="sucre">Sucre</option>
+                            <option value="tolima">Tolima</option>
+                            <option value="valle_del_cauca">Valle del Cauca</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Municipio</label>
+                        <select class="filter-select" id="municipalityFilter">
+                            <option value="all">Todos los municipios</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label class="filter-label">Tipo de Incapacidad</label>
+                        <select class="filter-select" id="incapacityTypeFilter">
+                            <option value="all">Todos los tipos</option>
+                            <option value="enfermedad_general">Enfermedad General</option>
+                            <option value="licencia_maternidad">Licencia de Maternidad</option>
+                            <option value="licencia_paternidad">Licencia de Paternidad</option>
+                            <option value="accidente_laboral">Accidente Laboral</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="filter-group">
-                    <label class="filter-label">Entidad:</label>
-                    <select class="filter-select" id="entityFilter">
-                        <option value="all">Todas las entidades</option>
-                        <option value="arl_sura">ARL SURA</option>
-                        <option value="mutual_ser">MUTUAL SER</option>
-                        <option value="cafam_salud">CAFAM SALUD</option>
-                        <option value="assist_salud">ASSIST SALUD</option>
-                        <option value="famisanar">FAMISANAR</option>
-                    </select>
+                
+                <div class="filters-actions">
+                    <button class="apply-filters-btn" onclick="applyFilters()">Aplicar Filtros</button>
+                    <button class="clear-filters-btn" onclick="clearFilters()">Limpiar Filtros</button>
                 </div>
-                <button class="apply-filters-btn" onclick="applyFilters()">Aplicar Filtros</button>
             </div>
 
-            <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h3>Pagadas</h3>
+                    <h3>Recibidas</h3>
                     <div class="value">$0</div>
                     <div class="change positive">0% del total</div>
                 </div>
                 <div class="stat-card">
-                    <h3>Negadas</h3>
+                    <h3>Radicada</h3>
                     <div class="value">$0</div>
                     <div class="change negative">0% del total</div>
                 </div>
@@ -165,34 +205,69 @@
                     <div class="change neutral">0% del total</div>
                 </div>
                 <div class="stat-card">
-                    <h3>Total Generadas</h3>
+                    <h3>Pagadas</h3>
                     <div class="value">$0</div>
                     <div class="change positive">0% del total</div>
                 </div>
+                <div class="stat-card">
+                    <h3>Negadas</h3>
+                    <div class="value">$0</div>
+                    <div class="change neutral">0% del total</div>
+                </div>
             </div>
 
-            <!-- Charts -->
             <div class="charts-grid">
                 <div class="chart-container">
-                    <h3>Pagado por Nómina vs Pagado por Administradora</h3>
+                    <h3>💰 Pagado por Nómina vs Pagado por Administradora</h3>
                     <div class="chart-wrapper">
                         <canvas id="nominaChart"></canvas>
                     </div>
                 </div>
+                
                 <div class="chart-container">
-                    <h3>Pagos por Entidades (Circular)</h3>
+                    <h3>🏢 Distribución por Entidades</h3>
                     <div class="chart-wrapper">
                         <canvas id="entidadesChart"></canvas>
                     </div>
                 </div>
+                
                 <div class="chart-container">
-                    <h3>Saldo por Entidades</h3>
+                    <h3>🏥 Incapacidades por Tipo</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="incapacityTypeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>🗺️ Distribución Geográfica</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="geographicChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>📊 Saldo por Entidades</h3>
                     <div class="chart-wrapper">
                         <canvas id="saldoChart"></canvas>
                     </div>
                 </div>
+                
                 <div class="chart-container">
-                    <h3>Estadísticas Generales</h3>
+                    <h3>📈 Tendencia Mensual</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="monthlyTrendChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>⏱️ Tiempo de Procesamiento</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="processingTimeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>📋 Estado General de Incapacidades</h3>
                     <div class="chart-wrapper">
                         <canvas id="estadisticasChart"></canvas>
                     </div>
