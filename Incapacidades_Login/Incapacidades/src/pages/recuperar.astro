@@ -1,0 +1,52 @@
+---
+import "../styles/styles.css";
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Recuperar Contraseña | I-Reports</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="/icono.png"/>
+  </head>
+  <body>
+    <ul class="bg-bubbles">
+      <li></li><li></li><li></li><li></li><li></li>
+      <li></li><li></li><li></li><li></li><li></li>
+    </ul>
+
+    <div class="container">
+      <div class="form-wrapper">
+        <img src="/Logo_1.jpg" alt="Logo" class="logo" />
+
+        <div class="text-center">
+          <h3 class="mb-0">Recuperar Contraseña</h3>
+          <p class="text-muted mt-2">Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña</p>
+        </div>
+
+        <form on:submit|preventDefault={() => alert('Si existiera una cuenta con ese correo, recibirás instrucciones.')}>
+          <div class="form-group">
+            <label for="correo">Correo Electrónico</label>
+            <div class="input-icon-wrapper">
+              <i class="mdi mdi-email field-icon"></i>
+              <input type="email" id="correo" placeholder="tucorreo@example.com" required />
+            </div>
+          </div>
+
+          <button type="submit" class="btn">Enviar instrucciones</button>
+          <div class="mt-3 text-center">
+            <a href="/" class="text-muted">Volver al inicio de sesión</a>
+          </div>
+        </form>
+
+        <footer>© 2018 – 2025 Incapacidades.co, Hecho con ❤️</footer>
+      </div>
+    </div>
+
+    <script src="/js/toggle.js" defer></script>
+  </body>
+</html>

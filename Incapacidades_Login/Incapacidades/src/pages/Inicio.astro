@@ -1,0 +1,206 @@
+---
+// src/pages/index.astro
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | I-Reports</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/src/styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+                <div class="logo">I</div>
+                <h1>Incapacidades</h1>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="nav-btn">⭐</button>
+                <span style="background: #ef4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">699</span>
+                <button class="nav-btn">🔔</button>
+                <button class="nav-btn">⚙️</button>
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar tema">🌙</button>
+                <div class="user-avatar">SB</div>
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-nav">
+                <!-- Información de la Empresa -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Empresa</div>
+                    <a href="#" class="nav-item" onclick="toggleDropdown(this)">
+                        <div class="nav-item-content">
+                            <span class="icon">🏢</span>
+                            <span>Información de la Empresa</span>
+                        </div>
+                        <span class="chevron">▼</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="#" class="submenu-item">Datos Generales de Usuario</a>
+                        <a href="#" class="submenu-item">Listado de Empresas</a>
+                        <a href="#" class="submenu-item">Estadísticas</a>
+                    </div>
+                </div>
+
+                <!-- Gestión Incapacidades -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Gestión</div>
+                    <a href="#" class="nav-item" onclick="toggleDropdown(this)">
+                        <div class="nav-item-content">
+                            <span class="icon">🏥</span>
+                            <span>Gestión Incapacidades</span>
+                        </div>
+                        <span class="chevron">▼</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="#" class="submenu-item">Enfermedad General</a>
+                        <a href="#" class="submenu-item">Licencia de Maternidad</a>
+                        <a href="#" class="submenu-item">Licencia de Paternidad</a>
+                        <a href="#" class="submenu-item">Accidente Laboral</a>
+                        <a href="#" class="submenu-item">Accidente de Tránsito</a>
+                    </div>
+                </div>
+
+                <!-- Generación de Reportes -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Reportes</div>
+                    <a href="#" class="nav-item">
+                        <div class="nav-item-content">
+                            <span class="icon">📋</span>
+                            <span>Generación de Reportes</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Dashboard -->
+                <div class="nav-section">
+                    <div class="nav-section-title">Panel</div>
+                    <a href="#" class="nav-item active">
+                        <div class="nav-item-content">
+                            <span class="icon">📊</span>
+                            <span>Dashboard</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Sidebar Overlay para móviles -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <div class="header">
+                <h1>Incapacidades Nómina vs Pagos Recibidos - Año 2025</h1>
+                <p>Análisis detallado de incapacidades y pagos por entidades</p>
+            </div>
+
+            <!-- Filtros -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <label class="filter-label">Año:</label>
+                    <select class="filter-select" id="yearFilter">
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Mes:</label>
+                    <select class="filter-select" id="monthFilter">
+                        <option value="all">Todos los meses</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Entidad:</label>
+                    <select class="filter-select" id="entityFilter">
+                        <option value="all">Todas las entidades</option>
+                        <option value="arl_sura">ARL SURA</option>
+                        <option value="mutual_ser">MUTUAL SER</option>
+                        <option value="cafam_salud">CAFAM SALUD</option>
+                        <option value="assist_salud">ASSIST SALUD</option>
+                        <option value="famisanar">FAMISANAR</option>
+                    </select>
+                </div>
+                <button class="apply-filters-btn" onclick="applyFilters()">Aplicar Filtros</button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Pagadas</h3>
+                    <div class="value">$0</div>
+                    <div class="change positive">0% del total</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Negadas</h3>
+                    <div class="value">$0</div>
+                    <div class="change negative">0% del total</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Pendientes</h3>
+                    <div class="value">$0</div>
+                    <div class="change neutral">0% del total</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Generadas</h3>
+                    <div class="value">$0</div>
+                    <div class="change positive">0% del total</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Pagado por Nómina vs Pagado por Administradora</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="nominaChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Pagos por Entidades (Circular)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="entidadesChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Saldo por Entidades</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="saldoChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>Estadísticas Generales</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="estadisticasChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/scripts/dashboard.js" defer></script>
+</body>
+</html>

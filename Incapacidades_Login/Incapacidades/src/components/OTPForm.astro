@@ -1,0 +1,23 @@
+---
+---
+<form action="/api/send-otp" method="POST">
+  <div class="form-group">
+    <label for="telefono">Número de Teléfono</label>
+    <div class="input-icon-wrapper">
+      <img src="/phone.png" alt="" class="field-icon" />
+      <input type="tel" id="telefono" name="telefono" placeholder="+57312345678" required />
+    </div>
+  </div>
+  <button type="submit" class="btn">Enviar código</button>
+</form>
+
+<form action="/api/verify-otp" method="POST" style="margin-top: 1rem;">
+  <div class="form-group">
+    <label for="codigo">Código</label>
+    <div class="input-icon-wrapper">
+      <img src="/cerrar.png" alt="" class="field-icon" />
+      <input type="text" id="codigo" name="codigo" placeholder="Código SMS" required />
+    </div>
+  </div>
+  <button type="submit" class="btn">Verificar</button>
+</form>
