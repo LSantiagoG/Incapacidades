@@ -6,6 +6,8 @@
       "@/*": ["src/*"]
     }
   },
-  "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "include": [".astro/types.d.ts", "**/*", "src/middleware.ts.bak"],
+  "exclude": [
+    "dist"
+  ]
 }

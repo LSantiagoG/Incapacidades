@@ -1,17 +1,34 @@
 ---
+import { Eye, EyeClosed, Mail, LockKeyhole } from "@lucide/astro";
+import { createSupabaseServerClient } from "@/lib/supabase";
 import "../styles/styles.css";
+
+export const prerender = false;
+
+// Verificar si ya está logueado
+const response = new Response();
+const supabase = createSupabaseServerClient(Astro.request, response);
+
+try {
+  const { data: { session } } = await supabase.auth.getSession();
+  
+  if (session) {
+    // Ya está logueado, redirigir a inicio
+    return Astro.redirect('/inicio');
+  }
+} catch (error) {
+  console.error('Error verificando sesión:', error);
+}
 ---
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | I-Reports</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet" />
   <link rel="icon" type="image/png" sizes="32x32" href="/icono.png" />
-
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -19,52 +36,86 @@ import "../styles/styles.css";
     <li></li><li></li><li></li><li></li><li></li>
     <li></li><li></li><li></li><li></li><li></li>
   </ul>
-
+  
   <div class="container">
     <div class="form-wrapper">
-      <img src="/Logo_1.jpg" alt="Logo" class="logo" />
-
-      <div class="text-center">
-        <h3 class="mb-0">Bienvenido!</h3>
-        <p class="text-muted mt-2">Ingresa para continuar a I-Reports.</p>
+      <img src="./logos/incapacidades.jpg" alt="Logo" class="logo" />
+      
+      <!-- Sección de Login -->
+      <div id="login-section">
+        <div class="text-center">
+          <h3 class="mb-0">Bienvenido!</h3>
+          <p class="text-muted mt-2">Ingresa para continuar a I-Reports.</p>
+        </div>
+        
+        <form id="login-form">
+          <div class="form-group">
+            <label for="email">Correo</label>
+            <div class="input-icon-wrapper">
+              <Mail class="field-icon"/>
+              <input type="email" id="email" name="email" placeholder="Digite su correo" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <div class="input-icon-wrapper password-wrapper">
+              <LockKeyhole class="field-icon"/>
+              <input type="password" id="password" name="password" placeholder="Ingrese su Contraseña" required />
+              <button class="toggle-password" type="button" aria-label="Mostrar contraseña">
+                <Eye stroke-width="1" width="24" id="eye-open"/>
+                <EyeClosed stroke-width="1" width="24" id="eye-closed" style="display: none;"/>
+              </button>
+            </div>
+            <a href="/recuperar" class="forgot-password">¿Recordar Contraseña?</a>
+          </div>
+          <div class="options">
+            <label><input type="checkbox" name="remember" /> Mantener sesión iniciada</label>
+          </div>
+          <button type="submit" class="btn">Ingresar</button>
+          <a href="/otp" class="btn" style="margin-top: 10px; display: inline-block; text-align: center;">
+            Ingresar con número telefónico
+          </a>
+        </form>
+        <p class="register">¿No tienes una cuenta? <a href="/registrate">Regístrate Aquí</a></p>
       </div>
-      <form id="login-form">
-        <div class="form-group">
-          <label for="email">Correo</label>
-          <div class="input-icon-wrapper">
-            <img src="/correo-electronico.png" alt="" class="field-icon" />
-            <input type="email" id="email" placeholder="Digite su correo" required />
+
+      <!-- Sección de Verificación OTP (oculta inicialmente) -->
+      <div id="otp-section" style="display: none;">
+        <div class="text-center">
+          <h3 class="mb-0">Verificación de Seguridad</h3>
+          <p class="text-muted mt-2">Te hemos enviado un código OTP a tu correo electrónico</p>
+          <p class="text-muted" id="email-display"></p>
+        </div>
+
+        <form id="otp-form" style="margin-top: 2rem;">
+          <div class="form-group">
+            <label for="otp-code">Código de Verificación</label>
+            <div class="input-icon-wrapper">
+              <LockKeyhole class="field-icon" />
+              <input type="text" id="otp-code" name="otp-code" placeholder="Ingresa el código de 6 dígitos" required maxlength="6" />
+            </div>
           </div>
+          <button type="submit" class="btn">Verificar Código</button>
+        </form>
+
+        <!-- Botones de acción -->
+        <div style="margin-top: 1.5rem; text-align: center;">
+          <button id="resend-otp-btn" class="btn" style="background: #6c757d; margin-right: 10px;" disabled>
+            Reenviar código (<span id="countdown">180</span>s)
+          </button>
+          <button id="back-to-login-btn" class="btn" style="background: #dc3545;">
+            Cambiar datos de acceso
+          </button>
         </div>
 
-        <div class="form-group">
-          <label for="password">Contraseña</label>
-          <div class="input-icon-wrapper password-wrapper">
-            <img src="/cerrar.png" alt="" class="field-icon" />
-            <input type="password" id="password" placeholder="Ingrese su Contraseña" required />
-            <button class="toggle-password" type="button" aria-label="Mostrar contraseña">
-              <i class="mdi mdi-eye-outline"></i>
-            </button>
-          </div>
-          <a href="/recuperar" class="forgot-password">¿Recordar Contraseña?</a>
-        </div>
+        <!-- Mensaje de estado -->
+        <div id="otp-message" style="margin-top: 1rem; font-weight: bold; text-align: center;"></div>
+      </div>
 
-        <div class="options">
-          <label><input type="checkbox" /> Mantener sesión iniciada</label>
-        </div>
-
-        <button type="submit" class="btn">Ingresar</button>
-        <a href="/otp" class="btn" style="margin-top: 10px; display: inline-block; text-align: center;">
-          Ingresar con número telefónico
-        </a>
-      </form>
-
-      <p class="register">¿No tienes una cuenta? <a href="/registrate">Regístrate Aquí</a></p>
-      <footer>© 2018 – 2025 Incapacidades.co, Hecho con ❤️</footer>
+      <footer>© 2018 – 2025 Incapacidades.app, Hecho con ❤️</footer>
     </div>
   </div>
 
-  <script src="/js/toggle.js" defer></script>
-  <script src="/js/usuario_prueba.js" defer></script>
+  <script src="/js/auth.js" defer></script>
 </body>
 </html>

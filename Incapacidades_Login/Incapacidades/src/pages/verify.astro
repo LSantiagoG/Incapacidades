@@ -1,5 +1,7 @@
 ---
+import { LockKeyhole } from "@lucide/astro";
 import "../styles/styles.css";
+
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -8,7 +10,6 @@ import "../styles/styles.css";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verificación OTP | I-Reports</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.x/css/materialdesignicons.min.css" rel="stylesheet" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icono.png" />
   </head>
   <body>
@@ -19,24 +20,12 @@ import "../styles/styles.css";
 
     <div class="container">
       <div class="form-wrapper">
-        <img src="/Logo_1.jpg" alt="Logo" class="logo" />
+        <img src="/logos/incapacidades.jpg" alt="Logo" class="logo" />
 
         <div class="text-center">
-          <h3 class="mb-0">Inicia sesión</h3>
-          <p class="text-muted mt-2">Ingresa tu teléfono y te enviaremos un código para iniciar sesión</p>
+          <h3 class="mb-0">Ingresa el código OTP</h3>
+          <p class="text-muted mt-2">Te hemos enviado un código OTP</p>
         </div>
-
-        <!-- Formulario para enviar número -->
-        <form id="otp-form">
-          <div class="form-group">
-            <label for="telefono">Número de Teléfono</label>
-            <div class="input-icon-wrapper">
-              <img src="/phone.png" alt="" class="field-icon" />
-              <input type="tel" id="telefono" name="telefono" placeholder="+57312345678" required />
-            </div>
-          </div>
-          <button type="submit" class="btn">Enviar código</button>
-        </form>
 
         <!-- Mensaje dinámico -->
         <div id="mensaje" style="margin-top: 1rem; font-weight: bold;"></div>
@@ -46,8 +35,8 @@ import "../styles/styles.css";
           <div class="form-group">
             <label for="codigo">Código</label>
             <div class="input-icon-wrapper">
-              <img src="/cerrar.png" alt="" class="field-icon" />
-              <input type="text" id="codigo" name="codigo" placeholder="Código SMS" required />
+              <LockKeyhole class="field-icon" />
+              <input type="text" id="codigo" name="codigo" placeholder="Código OTP" required maxlength="6" />
             </div>
           </div>
           <button type="submit" class="btn">Verificar</button>

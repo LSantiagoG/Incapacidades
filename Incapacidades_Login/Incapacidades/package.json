@@ -9,10 +9,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.9",
+    "@lucide/astro": "^0.516.0",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.50.0",
     "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.8.0",
     "nodemailer": "^7.0.3",
+    "resend": "^4.6.0",
     "tailwindcss": "^4.1.7",
     "twilio": "^5.7.0"
   }

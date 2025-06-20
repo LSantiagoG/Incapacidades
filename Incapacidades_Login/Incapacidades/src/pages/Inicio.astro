@@ -1,5 +1,6 @@
 ---
 // src/pages/index.astro
+import { LogOut } from "@lucide/astro";
 ---
 
 <!DOCTYPE html>
@@ -27,6 +28,9 @@
                 <button class="nav-btn">⚙️</button>
                 <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar tema">🌙</button>
                 <div class="user-avatar">SB</div>
+                <button id="logout-btn" class="btn" title="Cerrar sesión" aria-label="Cerrar sesión">
+                <LogOut class="w-5 h-5" />
+                </button>
             </div>
         </nav>
 
@@ -277,5 +281,6 @@
     </div>
 
     <script src="/scripts/dashboard.js" defer></script>
+    <script src="/js/logout.js" is:inline></script>
 </body>
 </html>

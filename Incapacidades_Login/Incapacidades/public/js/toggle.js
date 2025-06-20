@@ -1,18 +1,25 @@
-
 document.addEventListener('DOMContentLoaded', () => {
   const togglePassword = document.querySelector('.toggle-password');
-  const passwordInput  = document.querySelector('#password');
+  const passwordInput = document.querySelector('#password');
 
   if (!togglePassword || !passwordInput) return;
 
   togglePassword.addEventListener('click', () => {
-
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.type = type;
 
-
-    const icon = togglePassword.querySelector('i');
-    icon.classList.toggle('mdi-eye-outline');
-    icon.classList.toggle('mdi-eye-off-outline');
+    // Cambiar iconos
+    const eyeOpen = togglePassword.querySelector('.eye-open');
+    const eyeClosed = togglePassword.querySelector('.eye-closed');
+    
+    if (type === 'text') {
+      // Mostrar contraseña - mostrar icono de ojo cerrado
+      eyeOpen.style.display = 'none';
+      eyeClosed.style.display = 'block';
+    } else {
+      // Ocultar contraseña - mostrar icono de ojo abierto
+      eyeOpen.style.display = 'block';
+      eyeClosed.style.display = 'none';
+    }
   });
 });

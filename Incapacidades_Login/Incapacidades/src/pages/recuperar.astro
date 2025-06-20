@@ -21,14 +21,15 @@ import "../styles/styles.css";
 
     <div class="container">
       <div class="form-wrapper">
-        <img src="/Logo_1.jpg" alt="Logo" class="logo" />
+        <img src="./logos/incapacidades.jpg" alt="Logo" class="logo" />
 
         <div class="text-center">
           <h3 class="mb-0">Recuperar Contraseña</h3>
           <p class="text-muted mt-2">Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña</p>
         </div>
 
-        <form on:submit|preventDefault={() => alert('Si existiera una cuenta con ese correo, recibirás instrucciones.')}>
+        <!-- FORMULARIO FUNCIONAL -->
+        <form id="recover-form">
           <div class="form-group">
             <label for="correo">Correo Electrónico</label>
             <div class="input-icon-wrapper">
@@ -43,10 +44,37 @@ import "../styles/styles.css";
           </div>
         </form>
 
-        <footer>© 2018 – 2025 Incapacidades.co, Hecho con ❤️</footer>
+        <p id="respuesta" class="text-center mt-2 text-muted"></p>
+
+        <footer>© 2018 – 2025 Incapacidades.app, Hecho con ❤️</footer>
       </div>
     </div>
 
     <script src="/js/toggle.js" defer></script>
+
+    <!-- LÓGICA PARA ENVIAR EL CORREO -->
+    <script type="module">
+      const form = document.getElementById('recover-form');
+      const respuesta = document.getElementById('respuesta');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const correo = document.getElementById('correo').value;
+
+        const res = await fetch('api/auth/recuperar-clave', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: correo })
+        });
+
+        const data = await res.json();
+        respuesta.textContent = data.success
+          ? '📩 Si existe una cuenta con ese correo, recibirás instrucciones.'
+          : '❌ Hubo un error al intentar enviar el correo.';
+
+        alert(respuesta.textContent); 
+  });
+</script>
+
   </body>
 </html>
