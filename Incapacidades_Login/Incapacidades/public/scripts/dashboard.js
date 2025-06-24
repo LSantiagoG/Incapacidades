@@ -554,17 +554,26 @@ function applyFilters() {
     // Actualizar gráficos
     updateCharts(data, month, entity, department, municipality, incapacityType);
 
-    // Actualizar título
+    // Actualizar título - CORREGIDO: usar el selector correcto
     const selectedYear = year;
     const selectedMonth = month === 'all' ? 'Todos los meses' : getMonthName(parseInt(month));
     const selectedDepartment = department === 'all' ? '' : ` - ${getDepartmentName(department)}`;
     const selectedMunicipality = municipality === 'all' ? '' : ` - ${getMunicipalityName(municipality)}`;
     const selectedIncapacityType = incapacityType === 'all' ? '' : ` - ${getIncapacityTypeName(incapacityType)}`;
     
-    document.querySelector('.header h1').textContent = 
-        `Incapacidades Nómina vs Pagos Recibidos - ${selectedMonth} ${selectedYear}${selectedDepartment}${selectedMunicipality}${selectedIncapacityType}`;
+    // Buscar el elemento del título correctamente
+    const titleElement = document.querySelector('.nav-brand h1');
+    if (titleElement) {
+        titleElement.textContent = `Incapacidades - ${selectedMonth} ${selectedYear}${selectedDepartment}${selectedMunicipality}${selectedIncapacityType}`;
+    } else {
+        // Si no encuentra el título en nav-brand, buscar alternativas
+        const altTitleElement = document.querySelector('h1') || document.querySelector('title');
+        if (altTitleElement) {
+            altTitleElement.textContent = `Incapacidades - ${selectedMonth} ${selectedYear}${selectedDepartment}${selectedMunicipality}${selectedIncapacityType}`;
+        }
+        console.warn('No se pudo encontrar el elemento del título para actualizar');
+    }
 }
-
 // Limpiar todos los filtros
 function clearFilters() {
     document.getElementById('yearFilter').value = '2025';
@@ -597,26 +606,72 @@ function setupFilterListeners() {
 }
 
 function updateStatsCards(stats) {
-    document.querySelector('.stat-card:nth-child(1) .value').textContent = '$' + stats.pagadas.toLocaleString();
-    document.querySelector('.stat-card:nth-child(2) .value').textContent = '$' + stats.negadas.toLocaleString();
-    document.querySelector('.stat-card:nth-child(3) .value').textContent = '$' + stats.pendientes.toLocaleString();
-    document.querySelector('.stat-card:nth-child(4) .value').textContent = '$' + stats.total.toLocaleString();
-    document.querySelector('.stat-card:nth-child(5) .value').textContent = '$' + stats.recibidas.toLocaleString();
-    document.querySelector('.stat-card:nth-child(6) .value').textContent = '$' + stats.radicadas.toLocaleString();
+    // Mapear correctamente con las tarjetas que existen en el HTML
+    // HTML: Recibidas, Radicada, Pendientes, Pagadas, Negadas (5 tarjetas)
+    
+    // Tarjeta 1: Recibidas
+    const recibidas = document.querySelector('.stat-card:nth-child(1) .value');
+    if (recibidas) {
+        recibidas.textContent = '$' + stats.recibidas.toLocaleString();
+    }
+    
+    // Tarjeta 2: Radicada
+    const radicada = document.querySelector('.stat-card:nth-child(2) .value');
+    if (radicada) {
+        radicada.textContent = '$' + stats.radicadas.toLocaleString();
+    }
+    
+    // Tarjeta 3: Pendientes
+    const pendientes = document.querySelector('.stat-card:nth-child(3) .value');
+    if (pendientes) {
+        pendientes.textContent = '$' + stats.pendientes.toLocaleString();
+    }
+    
+    // Tarjeta 4: Pagadas
+    const pagadas = document.querySelector('.stat-card:nth-child(4) .value');
+    if (pagadas) {
+        pagadas.textContent = '$' + stats.pagadas.toLocaleString();
+    }
+    
+    // Tarjeta 5: Negadas
+    const negadas = document.querySelector('.stat-card:nth-child(5) .value');
+    if (negadas) {
+        negadas.textContent = '$' + stats.negadas.toLocaleString();
+    }
 
     // Actualizar porcentajes
-    const pagadasPct = ((stats.pagadas / stats.total) * 100).toFixed(1);
-    const negadasPct = ((stats.negadas / stats.total) * 100).toFixed(1);
-    const pendientesPct = ((stats.pendientes / stats.total) * 100).toFixed(1);
     const recibidasPct = ((stats.recibidas / stats.total) * 100).toFixed(1);
     const radicadasPct = ((stats.radicadas / stats.total) * 100).toFixed(1);
+    const pendientesPct = ((stats.pendientes / stats.total) * 100).toFixed(1);
+    const pagadasPct = ((stats.pagadas / stats.total) * 100).toFixed(1);
+    const negadasPct = ((stats.negadas / stats.total) * 100).toFixed(1);
 
-    document.querySelector('.stat-card:nth-child(1) .change').textContent = `${pagadasPct}% del total`;
-    document.querySelector('.stat-card:nth-child(2) .change').textContent = `${negadasPct}% del total`;
-    document.querySelector('.stat-card:nth-child(3) .change').textContent = `${pendientesPct}% del total`;
-    document.querySelector('.stat-card:nth-child(5) .change').textContent = `${recibidasPct}% del total`;
-    document.querySelector('.stat-card:nth-child(6) .change').textContent = `${radicadasPct}% del total`;
-}   
+    // Actualizar porcentajes con verificación de elementos
+    const recibidasChange = document.querySelector('.stat-card:nth-child(1) .change');
+    if (recibidasChange) {
+        recibidasChange.textContent = `${recibidasPct}% del total`;
+    }
+    
+    const radicadaChange = document.querySelector('.stat-card:nth-child(2) .change');
+    if (radicadaChange) {
+        radicadaChange.textContent = `${radicadasPct}% del total`;
+    }
+    
+    const pendientesChange = document.querySelector('.stat-card:nth-child(3) .change');
+    if (pendientesChange) {
+        pendientesChange.textContent = `${pendientesPct}% del total`;
+    }
+    
+    const pagadasChange = document.querySelector('.stat-card:nth-child(4) .change');
+    if (pagadasChange) {
+        pagadasChange.textContent = `${pagadasPct}% del total`;
+    }
+    
+    const negadasChange = document.querySelector('.stat-card:nth-child(5) .change');
+    if (negadasChange) {
+        negadasChange.textContent = `${negadasPct}% del total`;
+    }
+} 
 
 function updateCharts(data, month, entity, department, municipality, incapacityType) {
     // Actualizar gráfico de nómina vs administradora

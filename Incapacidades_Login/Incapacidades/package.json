@@ -16,6 +16,7 @@
     "astro": "^5.8.0",
     "nodemailer": "^7.0.3",
     "resend": "^4.6.0",
+    "sweetalert2": "^11.22.1",
     "tailwindcss": "^4.1.7",
     "twilio": "^5.7.0"
   }

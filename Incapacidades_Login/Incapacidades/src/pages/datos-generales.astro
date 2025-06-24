@@ -1,0 +1,302 @@
+---
+// src/pages/datos-generales.astro
+import { LogOut } from "@lucide/astro";
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información del Usuario | I-Reports</title>
+    <link rel="stylesheet" href="/src/styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+                <div class="logo">I</div>
+                <h1>Incapacidades</h1>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="nav-btn">⭐</button>
+                <span style="background: #ef4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">699</span>
+                <button class="nav-btn">🔔</button>
+                <button class="nav-btn">⚙️</button>
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar tema">🌙</button>
+                <div class="user-avatar">SB</div>
+                <button id="logout-btn" class="btn" title="Cerrar sesión" aria-label="Cerrar sesión">
+                    <LogOut class="w-5 h-5" />
+                </button>
+            </div>
+        </nav>
+
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Empresa</div>
+                    <a href="#" class="nav-item" onclick="toggleDropdown(this)">
+                        <div class="nav-item-content">
+                            <span class="icon">🏢</span>
+                            <span>Información de la Empresa</span>
+                        </div>
+                        <span class="chevron">▼</span>
+                    </a>
+                    <div class="submenu open">
+                        <a href="/datos-generales" class="submenu-item active">Datos Generales de Usuario</a>
+                        <a href="/listado-empresas" class="submenu-item">Listado de Empresas</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gestión</div>
+                    <a href="#" class="nav-item" onclick="toggleDropdown(this)">
+                        <div class="nav-item-content">
+                            <span class="icon">🏥</span>
+                            <span>Gestión Incapacidades</span>
+                        </div>
+                        <span class="chevron">▼</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="#" class="submenu-item">Enfermedad General</a>
+                        <a href="#" class="submenu-item">Licencia de Maternidad</a>
+                        <a href="#" class="submenu-item">Licencia de Paternidad</a>
+                        <a href="#" class="submenu-item">Accidente Laboral</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reportes</div>
+                    <a href="#" class="nav-item">
+                        <div class="nav-item-content">
+                            <span class="icon">📋</span>
+                            <span>Generación de Reportes</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Panel</div>
+                    <a href="/" class="nav-item">
+                        <div class="nav-item-content">
+                            <span class="icon">📊</span>
+                            <span>Inicio</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <main class="main-content" id="mainContent">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Información de la Empresa</h2>
+                    <p>Gestiona y actualiza los datos de registro de la empresa</p>
+                </div>
+
+                <!-- FORMULARIO EMPRESA (SOLO JURÍDICA) -->
+                <div id="form-juridica" class="form-content">
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            🏢 Información de la Empresa
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label required">Razón Social</label>
+                                <input type="text" class="form-input" placeholder="Ingrese la razón social">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Tipo de Documento</label>
+                                <select class="form-select">
+                                    <option value="">Seleccione...</option>
+                                    <option value="rut">RUT</option>
+                                    <option value="nit">NIT</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Número NIT</label>
+                                <input type="text" class="form-input" placeholder="Ingrese el número NIT">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Dígito de Verificación</label>
+                                <input type="text" class="form-input" maxlength="1" placeholder="0-9">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Departamento</label>
+                                <select class="form-select">
+                                    <option value="">Seleccione...</option>
+                                    <option value="antioquia">Antioquia</option>
+                                    <option value="bogota">Bogotá D.C.</option>
+                                    <option value="valle">Valle del Cauca</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Municipio</label>
+                                <select class="form-select">
+                                    <option value="">Seleccione...</option>
+                                    <option value="medellin">Medellín</option>
+                                    <option value="bogota">Bogotá</option>
+                                    <option value="cali">Cali</option>
+                                </select>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label required">Dirección de la Empresa</label>
+                                <input type="text" class="form-input" placeholder="Ingrese la dirección completa">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            👤 Representante Legal
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label required">Nombre del Representante Legal</label>
+                                <input type="text" class="form-input" placeholder="Nombre completo">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Tipo de Documento</label>
+                                <select class="form-select">
+                                    <option value="">Seleccione...</option>
+                                    <option value="cc">Cédula de Ciudadanía</option>
+                                    <option value="ce">Cédula de Extranjería</option>
+                                    <option value="cd">Carnet Diplomático</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Número de Documento</label>
+                                <input type="text" class="form-input" placeholder="Número de identificación">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Teléfono</label>
+                                <input type="tel" class="form-input" placeholder="Número de teléfono">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label required">Email</label>
+                                <input type="email" class="form-input" placeholder="correo@empresa.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            🔑 Persona Autorizada
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label required">Nombre Persona Autorizada</label>
+                                <input type="text" class="form-input" placeholder="Nombre completo">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Tipo de Documento</label>
+                                <select class="form-select">
+                                    <option value="">Seleccione...</option>
+                                    <option value="cc">Cédula de Ciudadanía</option>
+                                    <option value="ce">Cédula de Extranjería</option>
+                                    <option value="cd">Carnet Diplomático</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Número de Documento</label>
+                                <input type="text" class="form-input" placeholder="Número de identificación">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label required">Teléfono</label>
+                                <input type="tel" class="form-input" placeholder="Número de teléfono">
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label required">Email</label>
+                                <input type="email" class="form-input" placeholder="correo@empresa.com">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 class="section-title">
+                            📄 Documentos Requeridos
+                        </h3>
+                        <div class="documents-section">
+                            <div class="documents-grid">
+                                <div class="document-item">
+                                    <div class="document-header">
+                                        <span class="document-name">RUT</span>
+                                        <span class="document-status uploaded">Subido</span>
+                                    </div>
+                                    <div class="document-actions">
+                                        <button class="btn-document view">👁️ Ver</button>
+                                        <button class="btn-document upload">📎 Actualizar</button>
+                                    </div>
+                                </div>
+                                <div class="document-item">
+                                    <div class="document-header">
+                                        <span class="document-name">Cámara de Comercio</span>
+                                        <span class="document-status missing">Pendiente</span>
+                                    </div>
+                                    <div class="document-actions">
+                                        <button class="btn-document upload">📎 Subir</button>
+                                    </div>
+                                </div>
+                                <div class="document-item">
+                                    <div class="document-header">
+                                        <span class="document-name">Certificación Bancaria</span>
+                                        <span class="document-status uploaded">Subido</span>
+                                    </div>
+                                    <div class="document-actions">
+                                        <button class="btn-document view">👁️ Ver</button>
+                                        <button class="btn-document upload">📎 Actualizar</button>
+                                    </div>
+                                </div>
+                                <div class="document-item">
+                                    <div class="document-header">
+                                        <span class="document-name">Logo Empresa</span>
+                                        <span class="document-status missing">Pendiente</span>
+                                    </div>
+                                    <div class="document-actions">
+                                        <button class="btn-document upload">📎 Subir</button>
+                                    </div>
+                                </div>
+                                <div class="document-item">
+                                    <div class="document-header">
+                                        <span class="document-name">Cédula Representante Legal</span>
+                                        <span class="document-status uploaded">Subido</span>
+                                    </div>
+                                    <div class="document-actions">
+                                        <button class="btn-document view">👁️ Ver</button>
+                                        <button class="btn-document upload">📎 Actualizar</button>
+                                    </div>
+                                </div>
+                                <div class="document-item">
+                                    <div class="document-header">
+                                        <span class="document-name">Cédula Persona Autorizada</span>
+                                        <span class="document-status missing">Pendiente</span>
+                                    </div>
+                                    <div class="document-actions">
+                                        <button class="btn-document upload">📎 Subir</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/" class="btn btn-secondary">
+                        ← Cancelar
+                    </a>
+                    <button class="btn btn-primary" onclick="saveUserInfo()">
+                        💾 Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/scripts/user-info.js" defer></script>
+    <script src="/js/logout.js" is:inline></script>
+</body>
+</html>

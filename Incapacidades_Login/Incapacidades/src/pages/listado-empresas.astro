@@ -1,0 +1,226 @@
+---
+// src/pages/listado-empresas.astro
+import { LogOut } from "@lucide/astro";
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Empresas | I-Reports</title>
+    <link rel="stylesheet" href="/src/styles/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+                <div class="logo">I</div>
+                <h1>Incapacidades</h1>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="nav-btn">⭐</button>
+                <span style="background: #ef4444; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: 600;">699</span>
+                <button class="nav-btn">🔔</button>
+                <button class="nav-btn">⚙️</button>
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Cambiar tema">🌙</button>
+                <div class="user-avatar">AD</div>
+                <button id="logout-btn" class="btn" title="Cerrar sesión" aria-label="Cerrar sesión">
+                    <LogOut class="w-5 h-5" />
+                </button>
+            </div>
+        </nav>
+
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Empresa</div>
+                    <a href="#" class="nav-item" onclick="toggleDropdown(this)">
+                        <div class="nav-item-content">
+                            <span class="icon">🏢</span>
+                            <span>Información de la Empresa</span>
+                        </div>
+                        <span class="chevron">▼</span>
+                    </a>
+                    <div class="submenu open">
+                        <a href="/datos-generales" class="submenu-item">Datos Generales de Usuario</a>
+                        <a href="/listado-empresas" class="submenu-item active">Listado de Empresas</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gestión</div>
+                    <a href="#" class="nav-item" onclick="toggleDropdown(this)">
+                        <div class="nav-item-content">
+                            <span class="icon">🏥</span>
+                            <span>Gestión Incapacidades</span>
+                        </div>
+                        <span class="chevron">▼</span>
+                    </a>
+                    <div class="submenu">
+                        <a href="#" class="submenu-item">Enfermedad General</a>
+                        <a href="#" class="submenu-item">Licencia de Maternidad</a>
+                        <a href="#" class="submenu-item">Licencia de Paternidad</a>
+                        <a href="#" class="submenu-item">Accidente Laboral</a>
+                    </div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reportes</div>
+                    <a href="#" class="nav-item">
+                        <div class="nav-item-content">
+                            <span class="icon">📋</span>
+                            <span>Generación de Reportes</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Panel</div>
+                    <a href="/" class="nav-item">
+                        <div class="nav-item-content">
+                            <span class="icon">📊</span>
+                            <span>Inicio</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <main class="main-content" id="mainContent">
+            <div class="page-container">
+                <!-- Header de la página -->
+                <div class="page-header">
+                    <div class="page-title">
+                        <h2>Listado de Empresas</h2>
+                        <p>Vista de administrador - Gestión de empresas registradas</p>
+                    </div>
+                    <div class="user-badge">
+                        <span class="role-badge admin">🔐 Administrador</span>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="filters-section">
+                    <h3 class="section-title">🔍 Filtros de Búsqueda</h3>
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label class="filter-label">Año</label>
+                            <select class="filter-select" id="filtroAnio">
+                                <option value="">Todos los años</option>
+                                <option value="2025">2025</option>
+                                <option value="2024">2024</option>
+                                <option value="2023">2023</option>
+                                <option value="2022">2022</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Mes</label>
+                            <select class="filter-select" id="filtroMes">
+                                <option value="">Todos los meses</option>
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Departamento</label>
+                            <select class="filter-select" id="filtroDepartamento">
+                                <option value="">Todos los departamentos</option>
+                                <option value="antioquia">Antioquia</option>
+                                <option value="bogota">Bogotá D.C.</option>
+                                <option value="valle">Valle del Cauca</option>
+                                <option value="atlantico">Atlántico</option>
+                                <option value="santander">Santander</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label class="filter-label">Municipio</label>
+                            <select class="filter-select" id="filtroMunicipio">
+                                <option value="">Todos los municipios</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="filters-actions">
+                        <button class="btn btn-secondary" onclick="limpiarFiltros()">
+                            🗑️ Limpiar Filtros
+                        </button>
+                        <button class="btn btn-primary" onclick="aplicarFiltros()">
+                            🔍 Aplicar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabla de empresas -->
+                <div class="table-section">
+                    <div class="table-header">
+                        <h3 class="section-title">🏢 Empresas Registradas</h3>
+                        <div class="table-actions">
+                            <button class="btn btn-warning" onclick="cargaMasiva()">
+                                📁 Carga Masiva
+                            </button>
+                            <button class="btn btn-success" onclick="agregarEmpresa()">
+                                ➕ Agregar Empresa
+                            </button>
+                            <button class="btn btn-secondary" onclick="exportarExcel()">
+                                📊 Exportar Excel
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table" id="tablaEmpresas">
+                            <thead>
+                                <tr>
+                                    <th>🏢 Nombre de la Empresa</th>
+                                    <th>👥 Número de Empleados</th>
+                                    <th>⚙️ Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaEmpresasBody">
+                                <!-- Los datos se cargan dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Paginación -->
+                    <div class="pagination-container">
+                        <div class="pagination-info">
+                            <span id="paginacionInfo">Mostrando 1-10 de 25 empresas</span>
+                        </div>
+                        <div class="pagination-controls">
+                            <button class="btn-pagination" onclick="cambiarPagina('prev')" id="btnAnterior">
+                                ← Anterior
+                            </button>
+                            <span class="pagination-numbers" id="numerosPaginacion">
+                                <button class="btn-page active">1</button>
+                                <button class="btn-page">2</button>
+                                <button class="btn-page">3</button>
+                            </span>
+                            <button class="btn-pagination" onclick="cambiarPagina('next')" id="btnSiguiente">
+                                Siguiente →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/scripts/listado-empresas.js" defer></script>
+    <script src="/js/logout.js" defer></script>
+</body>
+</html>

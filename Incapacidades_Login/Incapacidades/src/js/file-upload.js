@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase.js';
+import Swal from 'sweetalert2';
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
@@ -37,11 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
       if (tipoPersona === 'natural') {
         archivos.rut = await subirArchivo('rutNatural', 'natural/rut');
         archivos.cedula = await subirArchivo('cedulaNatural', 'natural/cedula');
+        archivos.certificado = await subirArchivo('certificadoBancario', 'juridica/bankcertificate');
       } else if (tipoPersona === 'juridica') {
         archivos.camara_comercio = await subirArchivo('camaraComercio', 'juridica/camara');
         archivos.rut = await subirArchivo('rut', 'juridica/rut');
         archivos.cedula_representante = await subirArchivo('cedulaRepresentante', 'juridica/rep');
         archivos.cedula_registrante = await subirArchivo('cedulaRegistrante', 'juridica/registrante');
+        archivos.certificado = await subirArchivo('certificadoBancario', 'juridica/bankcertificate');
       }
 
       const { error } = await supabase.from('solicitudes').insert({
@@ -58,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (error) throw error;
 
-      // 🔔 Enviar notificación a administración
+      // 🔔 Notificar a administración
       await fetch("/api/notificar-admin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -73,11 +76,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }),
       });
 
-      alert("🎉 Solicitud enviada con éxito");
+      // ✅ ALERTA AMIGABLE
+      await Swal.fire({
+        icon: 'success',
+        title: `¡Gracias, ${nombre}!`,
+        text: 'Tu solicitud fue enviada con éxito. Será revisada y recibirás una respuesta en las próximas 72 horas.',
+        confirmButtonText: 'Entendido',
+        timer: 8000,
+        timerProgressBar: true
+      });
+
       location.reload();
     } catch (err) {
       console.error(err);
-      alert("❌ Error al enviar la solicitud.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al enviar la solicitud',
+        text: 'Ocurrió un problema. Por favor intenta nuevamente más tarde.',
+        confirmButtonText: 'Cerrar'
+      });
     }
   });
 });
